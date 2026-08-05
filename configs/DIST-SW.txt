@@ -1,1 +1,40 @@
-
+!==================================================
+! Hostname: DIST-SW
+! Role: Distribution Layer Switch (Trunk Aggregation)
+!==================================================
+version 12.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname DIST-SW
+!
+vlan 10
+ name MANAGEMENT
+!
+vlan 20
+ name IT_ENGINEERING
+!
+vlan 30
+ name HR_SALES
+!
+vlan 99
+ name NATIVE_VLAN
+!
+interface GigabitEthernet1/0/1
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,99
+!
+interface GigabitEthernet1/0/2
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 10,20,30,99
+!
+line con 0
+ logging synchronous
+!
+line vty 0 4
+ login
+!
+end
